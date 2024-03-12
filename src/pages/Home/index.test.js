@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
 
 describe("When Form is created", () => {
@@ -29,16 +29,36 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    render(< Home />)
+    expect(screen.getByTestId("listEvents")).toBeInTheDocument()
+    /* Tester un événement de la liste */
+    waitFor(() => {
+      expect(screen.getByText("User&product MixUsers")).toBeInTheDocument()
+    })
   })
+
   it("a list a people is displayed", () => {
-    // to implement
+    render(< Home />)
+    expect(screen.getByTestId("listOfPeople")).toBeInTheDocument()
+    /* Tester des personnes de la liste */
+    expect(screen.getByText("Samira")).toBeInTheDocument()
+    expect(screen.getByText('Christine')).toBeInTheDocument()
   })
+
   it("a footer is displayed", () => {
-    // to implement
+    render(< Home />)
+    expect(screen.getByTestId("footer")).toBeInTheDocument()
+    /* Tester le footer */
+    expect(screen.getByText("01 23 45 67 89")).toBeInTheDocument()
   })
+
   it("an event card, with the last event, is displayed", () => {
-    // to implement
+    render(< Home />)
+    waitFor(() => {
+      expect(screen.getByTestId("lastEvent")).toBeInTheDocument()
+      /* tester un élément de la derniere prestation */
+      expect(screen.getByRole('date')).toBeInTheDocument()
+    })
   })
 });
